@@ -26,3 +26,9 @@ action "WebEx Teams Notification" {
   args = "--room Chris Gascoigne --message Hello from GitHub"
 }
 ```
+
+## Screenshot
+Example notification:
+
+
+![Example notification](./img/screenshot.png)
