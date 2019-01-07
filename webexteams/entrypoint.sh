@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sh -c "/usr/bin/env python3 webexteams.py $*"
+sh -c "/usr/bin/env python3 /webexteams.py $*"
