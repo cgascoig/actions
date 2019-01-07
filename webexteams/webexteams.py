@@ -15,17 +15,17 @@ def main():
 
     message = f"Event: {os.environ.get('GITHUB_EVENT_NAME')} Repository: {os.environ.get('GITHUB_REPOSITORY')} Commit: {os.environ.get('GITHUB_SHA')} Initiated by: {os.environ.get('GITHUB_ACTOR')} Workflow: {os.environ.get('GITHUB_WORKFLOW')} Message: {user_message}"
     markdown_message = f"""
-    **Event:** {os.environ.get('GITHUB_EVENT_NAME')} 
-    
-    **Repository:** {os.environ.get('GITHUB_REPOSITORY')} 
-    
-    **Commit:** {os.environ.get('GITHUB_SHA')} 
-    
-    **Initiated by:** {os.environ.get('GITHUB_ACTOR')} 
-    
-    **Workflow:** {os.environ.get('GITHUB_WORKFLOW')} 
-    
-    **Message:** {user_message}
+**Event:** {os.environ.get('GITHUB_EVENT_NAME')} 
+
+**Repository:** {os.environ.get('GITHUB_REPOSITORY')} 
+
+**Commit:** {os.environ.get('GITHUB_SHA')} 
+
+**Initiated by:** {os.environ.get('GITHUB_ACTOR')} 
+
+**Workflow:** {os.environ.get('GITHUB_WORKFLOW')} 
+
+**Message:** {user_message}
     """
 
     print(f"Attempting to send message '{message}' to room '{room_name}'")
