@@ -18,7 +18,7 @@ action "Docker hub login" {
 action "Build intersight-ansible-action" {
   uses = "actions/docker/cli@master"
   needs = ["Docker hub login"]
-  args = "build -t cgascoig/intersight-ansible-action:latest intersight/"
+  args = "build -t cgascoig/intersight-ansible-action:latest intersight-ansible/"
 }
 
 action "Push intersight-ansible-action" {
