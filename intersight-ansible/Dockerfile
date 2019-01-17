@@ -1,11 +1,24 @@
-FROM python:3.6-stretch
-ENTRYPOINT [ "/entrypoint.sh" ]
+FROM python:3.6-alpine as base
 
-RUN pip3 install ansible-runner ansible requests pycryptodome
+FROM base as builder
+RUN mkdir /install
+WORKDIR /install
+
+RUN apk add build-base python3-dev libffi-dev linux-headers openssl-dev
+
+COPY requirements.txt /requirements.txt
+
+RUN pip install --install-option="--prefix=/install" -r /requirements.txt
 
 ADD https://github.com/CiscoUcs/intersight-ansible/archive/master.tar.gz /tmp/intersight-ansible.tar.gz
+RUN (cd /tmp; tar xvfz /tmp/intersight-ansible.tar.gz; )
+
+FROM base
+ENTRYPOINT [ "/entrypoint.sh" ]
+
+COPY --from=builder /install /usr/local
 
 WORKDIR /runner
-RUN (cd /tmp; tar xvfz /tmp/intersight-ansible.tar.gz; mkdir -p /runner/project; cp -r intersight-ansible-master/* /runner/project ; rm -Rf /tmp/intersight-ansible*; )
+COPY --from=builder /tmp/intersight-ansible-master /runner/project
 
 ADD entrypoint.sh /entrypoint.sh

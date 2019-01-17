@@ -1,0 +1,4 @@
+ansible-runner
+ansible
+requests
+pycryptodome
