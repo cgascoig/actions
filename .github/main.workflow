@@ -1,9 +1,16 @@
 workflow "Send notification on push" {
   on = "push"
-  resolves = ["WebEx Teams Notification", "Push intersight-ansible-action"]
+  resolves = ["WebEx Teams Notification"]
+}
+
+# Filter for master branch
+action "Master" {
+  uses = "actions/bin/filter@master"
+  args = "branch master"
 }
 
 action "Docker hub login" {
+  needs = ["Master"]
   uses = "actions/docker/login@master"
   secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
 }
@@ -22,6 +29,7 @@ action "Push intersight-ansible-action" {
 
 action "WebEx Teams Notification" {
   uses = "./webexteams"
+  needs = ["Push intersight-ansible-action"]
   secrets = ["WEBEX_TEAMS_ACCESS_TOKEN"]
-  args = "--room Chris Gascoigne --message 'Hello from GitHub'"
+  args = "--room Chris Gascoigne --message 'New push, all actions completed'"
 }
